@@ -1,0 +1,40 @@
+name: Vliegprijzen zoeken
+
+on:
+  schedule:
+    - cron: "17 */2 * * *"   # elke 2 uur
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: zoek
+  cancel-in-progress: false
+
+jobs:
+  zoek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Zoeken
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python zoek.py
+      - name: Resultaten opslaan
+        if: always()
+        run: |
+          git config user.name "vliegprijs-agent"
+          git config user.email "actions@users.noreply.github.com"
+          git add data RAPPORT.md
+          git diff --cached --quiet || git commit -m "Prijzen bijgewerkt"
+          git push
