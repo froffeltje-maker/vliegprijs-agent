@@ -132,9 +132,18 @@ class TestParser(unittest.TestCase):
         with mock.patch.object(zoek, "haal_html", return_value=html):
             self.assertEqual(zoek.zoek_prijs(None), (212, ["SAS", "KLM"]))
 
-    def test_zoek_prijs_zonder_vluchten(self):
-        with mock.patch.object(zoek, "haal_html", return_value=GEEN_VLUCHTEN):
+    def test_zoek_prijs_zonder_vluchten_probeert_opnieuw(self):
+        with mock.patch.object(zoek, "haal_html", return_value=GEEN_VLUCHTEN) as h, \
+                mock.patch.object(zoek.time, "sleep"):
             self.assertEqual(zoek.zoek_prijs(None), (None, []))
+            self.assertEqual(h.call_count, 3)
+
+    def test_zoek_prijs_tweede_poging_lukt(self):
+        antwoorden = [GEEN_VLUCHTEN, pagina(overige=[vlucht(410)])]
+        with mock.patch.object(zoek, "haal_html", side_effect=antwoorden), \
+                mock.patch.object(zoek.time, "sleep") as slaap:
+            self.assertEqual(zoek.zoek_prijs(None, wacht=5), (410, ["KLM"]))
+            slaap.assert_called_once_with(5)
 
     def test_cookies_worden_meegestuurd(self):
         with mock.patch.object(zoek, "Client") as client:
@@ -227,6 +236,17 @@ class TestRun(unittest.TestCase):
         self.assertEqual(len(prijzen), 10)
         self.assertTrue(all(r["prijs"] is None for r in prijzen.values()))
         self.assertEqual(self.meldingen, [])
+
+    def test_leeg_antwoord_bewaart_oude_prijs(self):
+        self.draai(lambda q: 300)
+        cfg = json.loads((self.map / "config.json").read_text(encoding="utf-8"))
+        cfg["zoekopdrachten_per_run"] = 1296
+        (self.map / "config.json").write_text(json.dumps(cfg), encoding="utf-8")
+        prijzen = self.draai(lambda q: None)
+        met_prijs = [r for r in prijzen.values() if r["prijs"]]
+        self.assertEqual(len(met_prijs), 10)
+        self.assertTrue(all(r["prijs"] == 300 for r in met_prijs))
+        self.assertIn("€300", (self.map / "RAPPORT.md").read_text(encoding="utf-8"))
 
     def test_stopt_bij_blokkade(self):
         aanroepen = []

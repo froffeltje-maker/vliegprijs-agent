@@ -89,10 +89,16 @@ class GeenResultatenpagina(Exception):
     """Google gaf geen resultatenpagina terug (toestemmingspagina, captcha of blokkade)."""
 
 
+_client = None
+
+
 def haal_html(query):
-    client = Client(impersonate="chrome_145", impersonate_os="macos", referer=True,
-                    cookie_store=True)
-    return client.get(GOOGLE_FLIGHTS, params=query.params(), cookies=TOESTEMMING_COOKIES).text
+    # Eén sessie voor de hele run, zoals een gewone browser, in plaats van per verzoek.
+    global _client
+    if _client is None:
+        _client = Client(impersonate="chrome_145", impersonate_os="macos", referer=True,
+                         cookie_store=True)
+    return _client.get(GOOGLE_FLIGHTS, params=query.params(), cookies=TOESTEMMING_COOKIES).text
 
 
 def lees_vluchten(html):
@@ -147,24 +153,31 @@ def bewaar_voorbeeld(soort, html):
     (map_ / f"{soort}-{n + 1}.html").write_text(html, encoding="utf-8")
 
 
-def zoek_prijs(query):
-    """Geeft (laagste prijs, maatschappijen) terug, of (None, []) als er niets is."""
-    html = haal_html(query)
-    try:
-        resultaten = lees_vluchten(html)
-    except FlightsNotFound:
-        bewaar_voorbeeld("geen-vluchten", html)
-        return None, []
-    except Exception:
-        bewaar_voorbeeld("fout", html)
-        raise
-    opties = [r for r in resultaten if r.price and r.price > 0]
-    if not opties:
-        bewaar_voorbeeld("leeg", html)
-        return None, []
-    bewaar_voorbeeld("ok", html)
-    beste = min(opties, key=lambda r: r.price)
-    return beste.price, beste.airlines
+def zoek_prijs(query, pogingen=3, wacht=15):
+    """Geeft (laagste prijs, maatschappijen) terug, of (None, []) als er niets is.
+
+    Google geeft bij veel verzoeken achter elkaar soms een leeg antwoord of een
+    foutstatus terug in plaats van resultaten; dan wachten we en proberen opnieuw.
+    """
+    for poging in range(1, pogingen + 1):
+        html = haal_html(query)
+        try:
+            resultaten = lees_vluchten(html)
+        except FlightsNotFound:
+            bewaar_voorbeeld("geen-vluchten", html)
+            resultaten = []
+        except Exception:
+            bewaar_voorbeeld("fout", html)
+            raise
+        opties = [r for r in resultaten if r.price and r.price > 0]
+        if opties:
+            bewaar_voorbeeld("ok", html)
+            beste = min(opties, key=lambda r: r.price)
+            return beste.price, beste.airlines
+        if poging < pogingen:
+            time.sleep(wacht * poging)
+    bewaar_voorbeeld("leeg", html)
+    return None, []
 
 
 def stuur_melding(onderwerp, tekst):
@@ -214,13 +227,13 @@ def schrijf_rapport(cfg, prijzen):
         if not rijen:
             regels += ["_Nog geen prijzen (nog niet te boeken of nog niet gecontroleerd)._", ""]
             continue
-        regels += ["| Prijs | Route | Heen (vr) | Terug | Maatschappij | Gecontroleerd |",
+        regels += ["| Prijs | Route | Heen (vr) | Terug | Maatschappij | Prijs gezien |",
                    "|---:|---|---|---|---|---|"]
         for r in rijen[:15]:
             regels.append(
                 f"| [€{r['prijs']}]({r['url']}) | {r['van']} → {r['naar']} | {r['heen']} | "
                 f"{r['terug']} | {', '.join(r.get('maatschappijen') or [])} | "
-                f"{r['gecontroleerd'][:16].replace('T', ' ')} |")
+                f"{(r.get('bevestigd') or r['gecontroleerd'])[:16].replace('T', ' ')} |")
         regels.append("")
     totaal = sum(1 for _ in combinaties(cfg, date.today()))
     gedaan = sum(1 for r in prijzen.values() if r.get("gecontroleerd"))
@@ -249,6 +262,7 @@ def main():
     nieuw_geschiedenis = not GESCHIEDENIS.exists()
     fouten_op_rij = 0
     gevonden = []
+    aantal_gezocht = aantal_met_prijs = 0
     with GESCHIEDENIS.open("a", newline="", encoding="utf-8") as f:
         schrijver = csv.writer(f)
         if nieuw_geschiedenis:
@@ -256,7 +270,7 @@ def main():
         for c in te_doen:
             query = bouw_query(cfg, c)
             try:
-                prijs, maatschappijen = zoek_prijs(query)
+                prijs, maatschappijen = zoek_prijs(query, wacht=cfg["pauze_seconden"] * 3)
                 fouten_op_rij = 0
             except Exception as e:
                 fouten_op_rij += 1
@@ -267,15 +281,25 @@ def main():
                 time.sleep(cfg["pauze_seconden"] * 3)
                 continue
             tijd = datetime.now(timezone.utc).isoformat(timespec="seconds")
-            r = {**c, "prijs": prijs, "maatschappijen": maatschappijen,
-                 "url": query.url(), "gecontroleerd": tijd}
+            vorig = prijzen.get(c["sleutel"], {})
+            if prijs:
+                r = {**c, "prijs": prijs, "maatschappijen": maatschappijen,
+                     "url": query.url(), "gecontroleerd": tijd, "bevestigd": tijd}
+                aantal_met_prijs += 1
+            else:
+                # Een leeg antwoord kan ook afremming door Google zijn: oude prijs bewaren.
+                r = {**c, "prijs": vorig.get("prijs"), "maatschappijen": vorig.get("maatschappijen", []),
+                     "url": query.url(), "gecontroleerd": tijd, "bevestigd": vorig.get("bevestigd")}
             prijzen[c["sleutel"]] = r
+            aantal_gezocht += 1
             print(f"  {c['sleutel']}: {'€' + str(prijs) if prijs else 'geen vluchten'}")
             if prijs:
                 schrijver.writerow([tijd, c["periode"], c["van"], c["naar"], c["heen"],
                                     c["terug"], prijs, " ".join(maatschappijen)])
                 gevonden.append(r)
             time.sleep(cfg["pauze_seconden"])
+
+    print(f"Klaar: {aantal_met_prijs} van {aantal_gezocht} zoekopdrachten gaven een prijs.")
 
     # Verlopen vertrekdata opruimen.
     prijzen = {k: v for k, v in prijzen.items() if v["heen"] > vandaag.isoformat()}

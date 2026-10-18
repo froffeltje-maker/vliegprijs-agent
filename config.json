@@ -5,8 +5,8 @@
   "min_verblijf_dagen": 7,
   "max_verblijf_dagen": 14,
   "max_overstappen": 2,
-  "zoekopdrachten_per_run": 120,
-  "pauze_seconden": 3,
+  "zoekopdrachten_per_run": 80,
+  "pauze_seconden": 6,
 
   "vertrekluchthavens": {
     "AMS": "Amsterdam Schiphol",
