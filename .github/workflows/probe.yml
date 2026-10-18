@@ -1,0 +1,18 @@
+name: Test prijskalender (tijdelijk)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install flights==0.9.0
+      - run: |
+          python scripts/probe_kalender.py 2>&1 | tee probe.log
+          python3 scripts/annotatie.py "Kalendertest" < probe.log
