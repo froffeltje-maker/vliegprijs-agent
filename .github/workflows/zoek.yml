@@ -3,7 +3,12 @@ name: Vliegprijzen zoeken
 on:
   schedule:
     - cron: "17 */2 * * *"   # elke 2 uur
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      testmail:
+        description: "Alleen een testmelding sturen (niet zoeken)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -31,7 +36,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           set +e
-          python zoek.py 2>&1 | tee run.log
+          if [ "${{ inputs.testmail }}" = "true" ]; then python zoek.py --testmail 2>&1 | tee run.log; else python zoek.py 2>&1 | tee run.log; fi
           status=${PIPESTATUS[0]}
           # Samenvatting als annotatie, zodat die ook zonder logbestanden leesbaar is.
           tail -n 30 run.log | python3 scripts/annotatie.py "Zoekresultaat (exit $status)"

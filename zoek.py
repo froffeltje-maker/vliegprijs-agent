@@ -329,4 +329,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if "--testmail" in sys.argv:
+        stuur_melding("✈️ Testmelding vliegprijs-agent",
+                      "Als je dit leest, werken de meldingen. Je krijgt voortaan bericht bij "
+                      "een nieuwe laagste prijs per reisperiode.")
+    else:
+        main()
