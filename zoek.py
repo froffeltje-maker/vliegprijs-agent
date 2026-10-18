@@ -301,8 +301,9 @@ def main():
 
     print(f"Klaar: {aantal_met_prijs} van {aantal_gezocht} zoekopdrachten gaven een prijs.")
 
-    # Verlopen vertrekdata opruimen.
-    prijzen = {k: v for k, v in prijzen.items() if v["heen"] > vandaag.isoformat()}
+    # Verlopen vertrekdata en combinaties die niet meer in config.json staan opruimen.
+    geldig = {c["sleutel"] for c in alle}
+    prijzen = {k: v for k, v in prijzen.items() if k in geldig}
     PRIJZEN.write_text(json.dumps(prijzen, ensure_ascii=False, indent=1), encoding="utf-8")
     schrijf_rapport(cfg, prijzen)
 

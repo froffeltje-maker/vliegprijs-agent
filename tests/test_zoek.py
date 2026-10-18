@@ -63,26 +63,26 @@ class TestCombinaties(unittest.TestCase):
             heen, terug = date.fromisoformat(c["heen"]), date.fromisoformat(c["terug"])
             self.assertEqual(heen.weekday(), 4, c)
             self.assertGreaterEqual((terug - heen).days, 7)
-            self.assertLessEqual((terug - heen).days, 14)
+            self.assertLessEqual((terug - heen).days, 10)
 
-    def test_aantallen_januari_februari(self):
+    def test_aantallen_eind_januari_eind_februari(self):
         cfg = laad_cfg()
         alle = list(zoek.combinaties(cfg, date(2026, 10, 18)))
         vrijdagen = sorted({c["heen"] for c in alle})
-        self.assertEqual(vrijdagen[0], "2027-01-01")
+        self.assertEqual(vrijdagen[0], "2027-01-22")
         self.assertEqual(vrijdagen[-1], "2027-02-26")
-        self.assertEqual(len(vrijdagen), 9)
-        self.assertEqual(len(alle), 9 * 8 * 9 * 2)  # vrijdagen x verblijf x vertrek x bestemming
+        self.assertEqual(len(vrijdagen), 6)
+        self.assertEqual(len(alle), 6 * 4 * 9 * 2)  # vrijdagen x verblijf x vertrek x bestemming
 
     def test_periodes_komen_binnen_boekingshorizon(self):
         cfg = laad_cfg()
         periodes = {c["periode"] for c in zoek.combinaties(cfg, date(2026, 10, 18))}
-        self.assertEqual(periodes, {"Januari-februari 2027"})
+        self.assertEqual(periodes, {"Eind januari - eind februari 2027"})
         periodes = {c["periode"] for c in zoek.combinaties(cfg, date(2026, 11, 15))}
         self.assertIn("Oktober 2027", periodes)
         self.assertNotIn("Kerst 2027", periodes)
         periodes = {c["periode"] for c in zoek.combinaties(cfg, date(2027, 1, 10))}
-        self.assertEqual(periodes, {"Januari-februari 2027", "Oktober 2027", "Kerst 2027"})
+        self.assertEqual(periodes, {"Eind januari - eind februari 2027", "Oktober 2027", "Kerst 2027"})
 
     def test_kerst_vrijdagen(self):
         cfg = laad_cfg()
