@@ -5,19 +5,12 @@
   "min_verblijf_dagen": 7,
   "max_verblijf_dagen": 10,
   "max_overstappen": 2,
-  "zoekopdrachten_per_run": 432,
+  "zoekopdrachten_per_run": 96,
   "pauze_seconden": 6,
   "max_minuten_per_run": 90,
   "vertrekluchthavens": {
     "AMS": "Amsterdam Schiphol",
-    "DUS": "Düsseldorf",
-    "GRQ": "Groningen Eelde",
-    "FMO": "Münster-Osnabrück",
-    "BRE": "Bremen",
-    "DTM": "Dortmund",
-    "NRN": "Weeze",
-    "EIN": "Eindhoven",
-    "RTM": "Rotterdam The Hague"
+    "DUS": "Düsseldorf"
   },
   "bestemmingen": {
     "OSD": "Östersund (Jämtland)",

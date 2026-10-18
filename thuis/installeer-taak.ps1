@@ -1,5 +1,5 @@
 # Maakt in Windows Taakplanner een taak die de vliegprijs-agent elke 2 uur draait
-# met config.thuis.json (alle luchthavens binnen 2 uur van Zwolle).
+# met config.thuis.json (Schiphol en Düsseldorf).
 # Uitvoeren: rechtsklik op dit bestand > "Uitvoeren met PowerShell".
 
 $ErrorActionPreference = "Stop"

@@ -1,11 +1,13 @@
-# Vliegprijs-agent Zwolle → Jämtland / Trondheim
+# Vliegprijs-agent Schiphol/Düsseldorf → Jämtland / Trondheim
 
 Zoekt via Google Flights naar de goedkoopste retourvlucht naar Östersund (OSD) of Trondheim (TRD).
 Heen op vrijdag, 7–10 dagen verblijf. Twee profielen:
 
-- **GitHub** (`config.json`): elke 2 uur, Schiphol en Düsseldorf. Resultaten in `RAPPORT.md`.
-- **Thuis** (`config.thuis.json`): alle 9 luchthavens binnen 2 uur van Zwolle, op je eigen pc.
-  Google geeft vanaf een thuisadres meestal meer resultaten dan vanaf GitHub. Resultaten in `RAPPORT-thuis.md`.
+Beide zoeken vanaf Schiphol (AMS) en Düsseldorf (DUS).
+
+- **GitHub** (`config.json`): elke 2 uur, ook als je pc uit staat. Resultaten in `RAPPORT.md`.
+- **Thuis** (`config.thuis.json`): op je eigen pc. Google geeft vanaf een thuisadres meestal meer
+  resultaten (vooral voor Östersund) dan vanaf GitHub. Resultaten in `RAPPORT-thuis.md`.
 
 - `RAPPORT.md`: actuele top-15 per reisperiode, met links naar Google Flights
 - `data/geschiedenis.csv`: alle gevonden prijzen over tijd

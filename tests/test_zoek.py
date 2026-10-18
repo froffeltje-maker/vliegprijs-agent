@@ -74,10 +74,10 @@ class TestCombinaties(unittest.TestCase):
         self.assertEqual(len(vrijdagen), 6)
         self.assertEqual(len(alle), 6 * 4 * 2 * 2)  # vrijdagen x verblijf x vertrek x bestemming
 
-    def test_thuisprofiel_alle_luchthavens_en_eigen_bestanden(self):
+    def test_thuisprofiel_zelfde_routes_eigen_bestanden(self):
         thuis = json.loads((PROJECT / "config.thuis.json").read_text(encoding="utf-8"))
-        self.assertEqual(len(thuis["vertrekluchthavens"]), 9)
-        self.assertEqual(len(list(zoek.combinaties(thuis, date(2026, 10, 18)))), 6 * 4 * 9 * 2)
+        self.assertEqual(set(thuis["vertrekluchthavens"]), {"AMS", "DUS"})
+        self.assertEqual(len(list(zoek.combinaties(thuis, date(2026, 10, 18)))), 6 * 4 * 2 * 2)
         self.assertNotEqual(thuis["data_map"], "data")
         self.assertNotEqual(thuis["rapport"], "RAPPORT.md")
 
