@@ -29,6 +29,7 @@ jobs:
           MAIL_TO: ${{ secrets.MAIL_TO }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          BEWAAR_VOORBEELDEN: "1"
         run: |
           set +e
           python zoek.py 2>&1 | tee run.log

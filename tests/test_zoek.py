@@ -110,6 +110,19 @@ class TestParser(unittest.TestCase):
         r = zoek.lees_vluchten(pagina(beste=[vlucht(199, ("SAS",))]))
         self.assertEqual([(f.price, f.airlines) for f in r], [(199, ["SAS"])])
 
+    def test_onvolledige_opties_worden_overgeslagen(self):
+        zonder_prijs = vlucht(100)
+        zonder_prijs[1] = []
+        zonder_extras = vlucht(275, ("SAS",))
+        zonder_extras[0][22] = None
+        zonder_extras[0][2] = None
+        r = zoek.lees_vluchten(pagina(beste=[zonder_prijs, None], overige=[zonder_extras]))
+        self.assertEqual([(f.price, f.airlines) for f in r], [(275, ["SAS"])])
+
+    def test_pagina_zonder_metadata(self):
+        html = pagina(beste=[vlucht(330)]).replace('[null, [[["SKY", "SkyTeam"]], [["KL", "KLM"]]]]', "null")
+        self.assertEqual([f.price for f in zoek.lees_vluchten(html)], [330])
+
     def test_toestemmingspagina_geeft_duidelijke_fout(self):
         with self.assertRaises(zoek.GeenResultatenpagina):
             zoek.lees_vluchten(TOESTEMMINGSPAGINA)

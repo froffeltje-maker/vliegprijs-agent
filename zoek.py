@@ -19,7 +19,6 @@ from pathlib import Path
 
 from fast_flights import FlightQuery, Passengers, create_query
 from fast_flights.exceptions import FlightsNotFound
-from fast_flights.parser import parse_js
 from primp import Client
 from selectolax.lexbor import LexborHTMLParser
 
@@ -101,32 +100,69 @@ def lees_vluchten(html):
     if script is None:
         raise GeenResultatenpagina(
             "geen Google Flights-resultaten ontvangen (toestemmingspagina, captcha of blokkade?)")
-    js = script.text()
-    # fast-flights leest alleen de lijst 'andere vluchten' (payload[3]); voeg de
-    # lijst 'beste vluchten' (payload[2]) daaraan toe zodat die niet gemist wordt.
-    try:
-        kop, rest = js.split("data:", 1)
-        data, staart = rest.rsplit(",", 1)
-        payload = json.loads(data)
-        beste = (payload[2] or [None])[0] or []
-        if beste:
-            overige = (payload[3] or [None])[0] or []
-            payload[3] = [beste + overige, *(payload[3] or [])[1:]]
-            js = kop + "data:" + json.dumps(payload) + "," + staart
-    except (ValueError, IndexError, TypeError):
-        pass
-    return parse_js(js)
+    data = script.text().split("data:", 1)[1].rsplit(",", 1)[0]
+    if data.endswith("errorHasStatus: true"):
+        raise FlightsNotFound("geen vluchten gevonden")
+    payload = json.loads(data)
+    # payload[2] = 'beste vluchten', payload[3] = 'andere vluchten'. De parser van
+    # fast-flights leest alleen payload[3] en struikelt over ontbrekende extra's,
+    # dus we lezen hier zelf alleen wat we nodig hebben: prijs en maatschappijen.
+    vluchten = []
+    for lijst in (_veilig(payload, 2, 0), _veilig(payload, 3, 0)):
+        for optie in lijst or []:
+            prijs = _veilig(optie, 1, 0, 1)
+            if isinstance(prijs, (int, float)) and prijs > 0:
+                maatschappijen = _veilig(optie, 0, 1)
+                vluchten.append(Vlucht(int(prijs), list(maatschappijen or [])))
+    return vluchten
+
+
+def _veilig(obj, *indexen):
+    for i in indexen:
+        try:
+            obj = obj[i]
+        except (IndexError, KeyError, TypeError):
+            return None
+    return obj
+
+
+class Vlucht:
+    def __init__(self, price, airlines):
+        self.price, self.airlines = price, airlines
+
+
+_voorbeelden = {}
+
+
+def bewaar_voorbeeld(soort, html):
+    """Bewaar per run een paar ruwe pagina's per soort, om de uitleeslogica te controleren."""
+    if not os.environ.get("BEWAAR_VOORBEELDEN"):
+        return
+    n = _voorbeelden.get(soort, 0)
+    if n >= 2:
+        return
+    _voorbeelden[soort] = n + 1
+    map_ = DATA / "voorbeelden"
+    map_.mkdir(parents=True, exist_ok=True)
+    (map_ / f"{soort}-{n + 1}.html").write_text(html, encoding="utf-8")
 
 
 def zoek_prijs(query):
     """Geeft (laagste prijs, maatschappijen) terug, of (None, []) als er niets is."""
+    html = haal_html(query)
     try:
-        resultaten = lees_vluchten(haal_html(query))
+        resultaten = lees_vluchten(html)
     except FlightsNotFound:
+        bewaar_voorbeeld("geen-vluchten", html)
         return None, []
+    except Exception:
+        bewaar_voorbeeld("fout", html)
+        raise
     opties = [r for r in resultaten if r.price and r.price > 0]
     if not opties:
+        bewaar_voorbeeld("leeg", html)
         return None, []
+    bewaar_voorbeeld("ok", html)
     beste = min(opties, key=lambda r: r.price)
     return beste.price, beste.airlines
 
