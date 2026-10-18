@@ -2,3 +2,6 @@ __pycache__/
 *.zip
 run.log
 opslaan.log
+data-thuis/
+RAPPORT-thuis.md
+geheim.env

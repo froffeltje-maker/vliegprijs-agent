@@ -5,32 +5,34 @@
   "min_verblijf_dagen": 7,
   "max_verblijf_dagen": 10,
   "max_overstappen": 2,
-  "zoekopdrachten_per_run": 80,
+  "zoekopdrachten_per_run": 96,
   "pauze_seconden": 6,
   "max_minuten_per_run": 25,
-
   "vertrekluchthavens": {
     "AMS": "Amsterdam Schiphol",
-    "DUS": "Düsseldorf",
-    "GRQ": "Groningen Eelde",
-    "FMO": "Münster-Osnabrück",
-    "BRE": "Bremen",
-    "DTM": "Dortmund",
-    "NRN": "Weeze",
-    "EIN": "Eindhoven",
-    "RTM": "Rotterdam The Hague"
+    "DUS": "Düsseldorf"
   },
   "bestemmingen": {
     "OSD": "Östersund (Jämtland)",
     "TRD": "Trondheim"
   },
-
   "periodes": [
-    {"naam": "Eind januari - eind februari 2027", "vertrek_van": "2027-01-22", "vertrek_tot": "2027-02-26"},
-    {"naam": "Oktober 2027", "vertrek_van": "2027-10-01", "vertrek_tot": "2027-10-29"},
-    {"naam": "Kerst 2027", "vertrek_van": "2027-12-10", "vertrek_tot": "2027-12-24"}
+    {
+      "naam": "Eind januari - eind februari 2027",
+      "vertrek_van": "2027-01-22",
+      "vertrek_tot": "2027-02-26"
+    },
+    {
+      "naam": "Oktober 2027",
+      "vertrek_van": "2027-10-01",
+      "vertrek_tot": "2027-10-29"
+    },
+    {
+      "naam": "Kerst 2027",
+      "vertrek_van": "2027-12-10",
+      "vertrek_tot": "2027-12-24"
+    }
   ],
-
   "melding": {
     "bij_nieuwe_laagste_prijs_per_periode": true,
     "altijd_melden_onder_eur": 250

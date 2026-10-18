@@ -72,7 +72,14 @@ class TestCombinaties(unittest.TestCase):
         self.assertEqual(vrijdagen[0], "2027-01-22")
         self.assertEqual(vrijdagen[-1], "2027-02-26")
         self.assertEqual(len(vrijdagen), 6)
-        self.assertEqual(len(alle), 6 * 4 * 9 * 2)  # vrijdagen x verblijf x vertrek x bestemming
+        self.assertEqual(len(alle), 6 * 4 * 2 * 2)  # vrijdagen x verblijf x vertrek x bestemming
+
+    def test_thuisprofiel_alle_luchthavens_en_eigen_bestanden(self):
+        thuis = json.loads((PROJECT / "config.thuis.json").read_text(encoding="utf-8"))
+        self.assertEqual(len(thuis["vertrekluchthavens"]), 9)
+        self.assertEqual(len(list(zoek.combinaties(thuis, date(2026, 10, 18)))), 6 * 4 * 9 * 2)
+        self.assertNotEqual(thuis["data_map"], "data")
+        self.assertNotEqual(thuis["rapport"], "RAPPORT.md")
 
     def test_periodes_komen_binnen_boekingshorizon(self):
         cfg = laad_cfg()
@@ -153,6 +160,20 @@ class TestParser(unittest.TestCase):
             _, kwargs = client.return_value.get.call_args
             self.assertIn("SOCS", kwargs["cookies"])
             self.assertIn("tfs", kwargs["params"])
+
+
+class TestGeheimen(unittest.TestCase):
+    def test_laad_geheimen(self):
+        map_ = Path(tempfile.mkdtemp())
+        pad = map_ / "geheim.env"
+        pad.write_text("# commentaar\nVLIEG_TEST_A = waarde=met=is\n\nVLIEG_TEST_B=x\n", encoding="utf-8")
+        with mock.patch.dict(zoek.os.environ, {"VLIEG_TEST_B": "al gezet"}):
+            zoek.laad_geheimen(pad)
+            self.assertEqual(zoek.os.environ["VLIEG_TEST_A"], "waarde=met=is")
+            self.assertEqual(zoek.os.environ["VLIEG_TEST_B"], "al gezet")
+        zoek.os.environ.pop("VLIEG_TEST_A", None)
+        shutil.rmtree(map_)
+        zoek.laad_geheimen(map_ / "bestaat-niet.env")
 
 
 class TestRun(unittest.TestCase):
@@ -247,6 +268,16 @@ class TestRun(unittest.TestCase):
         self.assertEqual(len(met_prijs), 10)
         self.assertTrue(all(r["prijs"] == 300 for r in met_prijs))
         self.assertIn("€300", (self.map / "RAPPORT.md").read_text(encoding="utf-8"))
+
+    def test_eigen_datamap_per_profiel(self):
+        cfg = json.loads((self.map / "config.json").read_text(encoding="utf-8"))
+        cfg.update({"data_map": "data-thuis", "rapport": "RAPPORT-thuis.md"})
+        (self.map / "thuis.json").write_text(json.dumps(cfg), encoding="utf-8")
+        with mock.patch.object(zoek, "haal_html", return_value=pagina(beste=[vlucht(300)])):
+            zoek.main("thuis.json")
+        self.assertTrue((self.map / "data-thuis" / "prijzen.json").exists())
+        self.assertTrue((self.map / "RAPPORT-thuis.md").exists())
+        self.assertFalse((self.map / "RAPPORT.md").exists())
 
     def test_stopt_bij_blokkade(self):
         aanroepen = []

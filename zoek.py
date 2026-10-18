@@ -241,8 +241,31 @@ def schrijf_rapport(cfg, prijzen):
     RAPPORT.write_text("\n".join(regels), encoding="utf-8")
 
 
-def main():
-    cfg = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
+def gebruik_mappen(cfg):
+    """Een eigen datamap/rapport per config, zodat GitHub en thuis elkaar niet storen."""
+    global DATA, PRIJZEN, GESCHIEDENIS, RAPPORT
+    if "data_map" in cfg:
+        DATA = ROOT / cfg["data_map"]
+        PRIJZEN = DATA / "prijzen.json"
+        GESCHIEDENIS = DATA / "geschiedenis.csv"
+    if "rapport" in cfg:
+        RAPPORT = ROOT / cfg["rapport"]
+
+
+def laad_geheimen(pad):
+    """Lees KEY=waarde-regels (bijv. SMTP_USER) uit een lokaal bestand, voor gebruik thuis."""
+    if not pad.exists():
+        return
+    for regel in pad.read_text(encoding="utf-8").splitlines():
+        regel = regel.strip()
+        if regel and not regel.startswith("#") and "=" in regel:
+            sleutel, waarde = regel.split("=", 1)
+            os.environ.setdefault(sleutel.strip(), waarde.strip())
+
+
+def main(config_naam="config.json"):
+    cfg = json.loads((ROOT / config_naam).read_text(encoding="utf-8"))
+    gebruik_mappen(cfg)
     DATA.mkdir(exist_ok=True)
     prijzen = laad_json(PRIJZEN, {})
     vandaag = date.today()
@@ -334,9 +357,11 @@ def main():
 
 
 if __name__ == "__main__":
+    laad_geheimen(ROOT / "geheim.env")
+    config_naam = sys.argv[sys.argv.index("--config") + 1] if "--config" in sys.argv else "config.json"
     if "--testmail" in sys.argv:
         stuur_melding("✈️ Testmelding vliegprijs-agent",
                       "Als je dit leest, werken de meldingen. Je krijgt voortaan bericht bij "
                       "een nieuwe laagste prijs per reisperiode.")
     else:
-        main()
+        main(config_naam)

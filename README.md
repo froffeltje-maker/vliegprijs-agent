@@ -1,8 +1,11 @@
 # Vliegprijs-agent Zwolle → Jämtland / Trondheim
 
-Zoekt elke 2 uur (GitHub Actions) via Google Flights naar de goedkoopste retourvlucht
-van een luchthaven binnen 2 uur van Zwolle naar Östersund (OSD) of Trondheim (TRD).
-Heen op vrijdag, minimaal 7 dagen verblijf. Instellen in `config.json`.
+Zoekt via Google Flights naar de goedkoopste retourvlucht naar Östersund (OSD) of Trondheim (TRD).
+Heen op vrijdag, 7–10 dagen verblijf. Twee profielen:
+
+- **GitHub** (`config.json`): elke 2 uur, Schiphol en Düsseldorf. Resultaten in `RAPPORT.md`.
+- **Thuis** (`config.thuis.json`): alle 9 luchthavens binnen 2 uur van Zwolle, op je eigen pc.
+  Google geeft vanaf een thuisadres meestal meer resultaten dan vanaf GitHub. Resultaten in `RAPPORT-thuis.md`.
 
 - `RAPPORT.md`: actuele top-15 per reisperiode, met links naar Google Flights
 - `data/geschiedenis.csv`: alle gevonden prijzen over tijd
@@ -23,3 +26,11 @@ pip install -r requirements.txt
 python zoek.py                               # één zoekronde
 python -m unittest discover -s tests -v      # tests (zonder internet)
 ```
+
+## Thuis laten draaien (Windows)
+1. Download deze repository (groene knop **Code → Download ZIP**) en pak hem uit.
+2. Installeer Python van python.org (vink *Add python.exe to PATH* aan).
+3. Kopieer `thuis/geheim.env.voorbeeld` naar de hoofdmap als `geheim.env` en vul je Gmail-adres en app-wachtwoord in.
+4. Rechtsklik op `thuis/installeer-taak.ps1` → **Uitvoeren met PowerShell**.
+
+Handmatig één ronde: `python zoek.py --config config.thuis.json`
