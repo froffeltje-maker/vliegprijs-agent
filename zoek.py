@@ -267,7 +267,11 @@ def main():
         schrijver = csv.writer(f)
         if nieuw_geschiedenis:
             schrijver.writerow(["tijd", "periode", "van", "naar", "heen", "terug", "prijs", "maatschappijen"])
+        start = time.monotonic()
         for c in te_doen:
+            if time.monotonic() - start > cfg.get("max_minuten_per_run", 25) * 60:
+                print("Tijdsbudget op, run gestopt; de rest volgt in de volgende run.")
+                break
             query = bouw_query(cfg, c)
             try:
                 prijs, maatschappijen = zoek_prijs(query, wacht=cfg["pauze_seconden"] * 3)

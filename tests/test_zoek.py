@@ -258,6 +258,12 @@ class TestRun(unittest.TestCase):
             self.draai(geblokkeerd)
         self.assertEqual(len(aanroepen), zoek.MAX_FOUTEN_OP_RIJ)
 
+    def test_stopt_bij_tijdsbudget(self):
+        klok = iter(range(0, 10000, 400))  # elke zoekopdracht 'duurt' 400 seconden
+        with mock.patch.object(zoek.time, "monotonic", lambda: next(klok)):
+            prijzen = self.draai(lambda q: 300)
+        self.assertEqual(len(prijzen), 3)  # start 0; na 400, 800, 1200 s door; bij 1600 s (> 25 min) stop
+
     def test_losse_fout_stopt_run_niet(self):
         teller = iter(range(100))
 
