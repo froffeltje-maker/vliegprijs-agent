@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
@@ -29,12 +29,29 @@ jobs:
           MAIL_TO: ${{ secrets.MAIL_TO }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python zoek.py
+        run: |
+          set +e
+          python zoek.py 2>&1 | tee run.log
+          status=${PIPESTATUS[0]}
+          # Samenvatting als annotatie, zodat die ook zonder logbestanden leesbaar is.
+          tail -n 30 run.log | python3 scripts/annotatie.py "Zoekresultaat (exit $status)"
+          exit $status
       - name: Resultaten opslaan
         if: always()
         run: |
-          git config user.name "vliegprijs-agent"
-          git config user.email "actions@users.noreply.github.com"
-          git add data RAPPORT.md
-          git diff --cached --quiet || git commit -m "Prijzen bijgewerkt"
-          git push
+          set +e
+          {
+            set -e
+            git config user.name "vliegprijs-agent"
+            git config user.email "actions@users.noreply.github.com"
+            git add data
+            [ -f RAPPORT.md ] && git add RAPPORT.md
+            if git diff --cached --quiet; then echo "niets te bewaren"; exit 0; fi
+            git commit -m "Prijzen bijgewerkt"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          } > opslaan.log 2>&1
+          status=$?
+          cat opslaan.log
+          if [ $status -ne 0 ]; then tail -n 20 opslaan.log | python3 scripts/annotatie.py "Opslaan mislukt"; fi
+          exit $status
