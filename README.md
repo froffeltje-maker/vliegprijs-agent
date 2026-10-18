@@ -16,3 +16,10 @@ Je krijgt een melding bij een nieuwe laagste prijs per periode, of als een prijs
 worden automatisch meegenomen zodra ze binnen ~11 maanden vallen.
 
 Tip: maak de repository openbaar, dan zijn de GitHub Actions-minuten onbeperkt gratis.
+
+## Zelf draaien en testen
+```
+pip install -r requirements.txt
+python zoek.py                               # één zoekronde
+python -m unittest discover -s tests -v      # tests (zonder internet)
+```

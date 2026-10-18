@@ -17,7 +17,18 @@ from datetime import date, datetime, timedelta, timezone
 from email.message import EmailMessage
 from pathlib import Path
 
-from fast_flights import FlightQuery, Passengers, create_query, get_flights
+from fast_flights import FlightQuery, Passengers, create_query
+from fast_flights.exceptions import FlightsNotFound
+from fast_flights.parser import parse_js
+from primp import Client
+from selectolax.lexbor import LexborHTMLParser
+
+GOOGLE_FLIGHTS = "https://www.google.com/travel/flights"
+# Zonder deze cookies toont Google in de EU eerst een cookie-toestemmingspagina.
+TOESTEMMING_COOKIES = {
+    "CONSENT": "YES+cb",
+    "SOCS": "CAESHAgBEhJnd3NfMjAyMzA4MTAtMF9SQzIaAmVuIAEaBgiAo_CmBg",
+}
 
 ROOT = Path(__file__).parent
 DATA = ROOT / "data"
@@ -75,14 +86,44 @@ def bouw_query(cfg, c):
     )
 
 
+class GeenResultatenpagina(Exception):
+    """Google gaf geen resultatenpagina terug (toestemmingspagina, captcha of blokkade)."""
+
+
+def haal_html(query):
+    client = Client(impersonate="chrome_145", impersonate_os="macos", referer=True,
+                    cookie_store=True)
+    return client.get(GOOGLE_FLIGHTS, params=query.params(), cookies=TOESTEMMING_COOKIES).text
+
+
+def lees_vluchten(html):
+    script = LexborHTMLParser(html).css_first(r"script.ds\:1")
+    if script is None:
+        raise GeenResultatenpagina(
+            "geen Google Flights-resultaten ontvangen (toestemmingspagina, captcha of blokkade?)")
+    js = script.text()
+    # fast-flights leest alleen de lijst 'andere vluchten' (payload[3]); voeg de
+    # lijst 'beste vluchten' (payload[2]) daaraan toe zodat die niet gemist wordt.
+    try:
+        kop, rest = js.split("data:", 1)
+        data, staart = rest.rsplit(",", 1)
+        payload = json.loads(data)
+        beste = (payload[2] or [None])[0] or []
+        if beste:
+            overige = (payload[3] or [None])[0] or []
+            payload[3] = [beste + overige, *(payload[3] or [])[1:]]
+            js = kop + "data:" + json.dumps(payload) + "," + staart
+    except (ValueError, IndexError, TypeError):
+        pass
+    return parse_js(js)
+
+
 def zoek_prijs(query):
     """Geeft (laagste prijs, maatschappijen) terug, of (None, []) als er niets is."""
     try:
-        resultaten = get_flights(query)
-    except Exception as e:
-        if type(e).__name__ == "FlightsNotFound":
-            return None, []
-        raise
+        resultaten = lees_vluchten(haal_html(query))
+    except FlightsNotFound:
+        return None, []
     opties = [r for r in resultaten if r.price and r.price > 0]
     if not opties:
         return None, []
@@ -183,7 +224,7 @@ def main():
                 fouten_op_rij = 0
             except Exception as e:
                 fouten_op_rij += 1
-                print(f"  fout bij {c['sleutel']}: {type(e).__name__}: {e}")
+                print(f"  fout bij {c['sleutel']}: {type(e).__name__}: {str(e).splitlines()[0][:200]}")
                 if fouten_op_rij >= MAX_FOUTEN_OP_RIJ:
                     print("Te veel fouten op rij (geblokkeerd?), run gestopt.")
                     break
