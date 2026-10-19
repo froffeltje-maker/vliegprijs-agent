@@ -196,7 +196,9 @@ class TestRun(unittest.TestCase):
         for p in self.patches:
             p.start()
         self.meldingen = []
-        p = mock.patch.object(zoek, "stuur_melding", lambda o, t: self.meldingen.append((o, t)))
+        self.html = []
+        p = mock.patch.object(zoek, "stuur_melding",
+                              lambda o, t, h=None: (self.meldingen.append((o, t)), self.html.append(h)))
         p.start()
         self.patches.append(p)
 
@@ -225,6 +227,22 @@ class TestRun(unittest.TestCase):
             self.assertEqual(len(list(csv.reader(f))), 11)  # kop + 10
         self.assertEqual(len(self.meldingen), 1)
         self.assertIn("€300", self.meldingen[0][0])
+
+    def test_mail_bevat_zelfde_tabel_als_rapport(self):
+        self.draai(lambda q: 300)
+        self.draai(lambda q: 279)
+        html = self.html[-1]
+        rapport = (self.map / "RAPPORT.md").read_text(encoding="utf-8")
+        for kop in zoek.KOPPEN:
+            self.assertIn(f">{kop}</th>", html)
+        # elke prijsregel uit het rapport staat ook in de mail
+        prijzen_rapport = [regel.split("]")[0][3:] for regel in rapport.splitlines() if regel.startswith("| [€")]
+        self.assertEqual(len(prijzen_rapport), 15)
+        self.assertEqual(html.count("<tr>") - 1, len(prijzen_rapport))
+        for prijs in prijzen_rapport:
+            self.assertIn(f">{prijs}</a>", html)
+        self.assertIn("background:#fff8c5;font-weight:600", html)  # nieuwe prijs gemarkeerd
+        self.assertIn("nieuwe laagste prijs", html)
 
     def test_tweede_run_controleert_nieuwe_combinaties(self):
         eerste = set(self.draai(lambda q: 300))

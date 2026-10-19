@@ -15,6 +15,7 @@ import urllib.parse
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from email.message import EmailMessage
+from html import escape
 from pathlib import Path
 
 from fast_flights import FlightQuery, Passengers, create_query
@@ -180,7 +181,7 @@ def zoek_prijs(query, pogingen=3, wacht=15):
     return None, []
 
 
-def stuur_melding(onderwerp, tekst):
+def stuur_melding(onderwerp, tekst, html=None):
     verstuurd = False
     if os.environ.get("SMTP_USER") and os.environ.get("SMTP_PASS"):
         msg = EmailMessage()
@@ -188,6 +189,8 @@ def stuur_melding(onderwerp, tekst):
         msg["From"] = os.environ["SMTP_USER"]
         msg["To"] = os.environ.get("MAIL_TO") or os.environ["SMTP_USER"]
         msg.set_content(tekst)
+        if html:
+            msg.add_alternative(html, subtype="html")
         with smtplib.SMTP_SSL(os.environ.get("SMTP_HOST", "smtp.gmail.com"), 465) as s:
             s.login(os.environ["SMTP_USER"], os.environ["SMTP_PASS"])
             s.send_message(msg)
@@ -213,32 +216,85 @@ def beschrijf(cfg, r):
             f"   {r['url']}")
 
 
-def schrijf_rapport(cfg, prijzen):
+KOPPEN = ["Prijs", "Route", "Heen (vr)", "Terug", "Maatschappij", "Prijs gezien"]
+GEEN_PRIJZEN = "Nog geen prijzen (nog niet te boeken of nog niet gecontroleerd)."
+
+
+def rapport_inhoud(cfg, prijzen):
+    """Gedeelde inhoud van RAPPORT.md en de e-mail: kop, en per periode de top-15."""
     nu = datetime.now(timezone.utc).astimezone().strftime("%d-%m-%Y %H:%M")
-    regels = ["# Vliegprijzen naar Jämtland / Trondheim", "",
-              f"Laatst bijgewerkt: {nu}. Retour, {cfg['volwassenen']} volwassene(n), "
-              f"heen op {cfg['vertrek_weekdag']}, {cfg['min_verblijf_dagen']}–"
-              f"{cfg['max_verblijf_dagen']} dagen verblijf.", ""]
+    intro = (f"Laatst bijgewerkt: {nu}. Retour, {cfg['volwassenen']} volwassene(n), "
+             f"heen op {cfg['vertrek_weekdag']}, {cfg['min_verblijf_dagen']}–"
+             f"{cfg['max_verblijf_dagen']} dagen verblijf.")
+    periodes = []
     for periode in cfg["periodes"]:
         rijen = sorted((r for r in prijzen.values()
                         if r["periode"] == periode["naam"] and r.get("prijs")),
                        key=lambda r: r["prijs"])
-        regels += [f"## {periode['naam']}", ""]
-        if not rijen:
-            regels += ["_Nog geen prijzen (nog niet te boeken of nog niet gecontroleerd)._", ""]
-            continue
-        regels += ["| Prijs | Route | Heen (vr) | Terug | Maatschappij | Prijs gezien |",
-                   "|---:|---|---|---|---|---|"]
-        for r in rijen[:15]:
-            regels.append(
-                f"| [€{r['prijs']}]({r['url']}) | {r['van']} → {r['naar']} | {r['heen']} | "
-                f"{r['terug']} | {', '.join(r.get('maatschappijen') or [])} | "
-                f"{(r.get('bevestigd') or r['gecontroleerd'])[:16].replace('T', ' ')} |")
-        regels.append("")
+        periodes.append((periode["naam"], rijen[:15]))
     totaal = sum(1 for _ in combinaties(cfg, date.today()))
     gedaan = sum(1 for r in prijzen.values() if r.get("gecontroleerd"))
-    regels += [f"_{gedaan} gecontroleerde combinaties; {totaal} nu te boeken combinaties in totaal._", ""]
+    voet = f"{gedaan} gecontroleerde combinaties; {totaal} nu te boeken combinaties in totaal."
+    return intro, periodes, voet
+
+
+def _cellen(r):
+    return [f"€{r['prijs']}", f"{r['van']} → {r['naar']}", r["heen"], r["terug"],
+            ", ".join(r.get("maatschappijen") or []),
+            (r.get("bevestigd") or r["gecontroleerd"])[:16].replace("T", " ")]
+
+
+def schrijf_rapport(cfg, prijzen):
+    intro, periodes, voet = rapport_inhoud(cfg, prijzen)
+    regels = ["# Vliegprijzen naar Jämtland / Trondheim", "", intro, ""]
+    for naam, rijen in periodes:
+        regels += [f"## {naam}", ""]
+        if not rijen:
+            regels += [f"_{GEEN_PRIJZEN}_", ""]
+            continue
+        regels += ["| " + " | ".join(KOPPEN) + " |", "|---:|---|---|---|---|---|"]
+        for r in rijen:
+            cellen = _cellen(r)
+            cellen[0] = f"[{cellen[0]}]({r['url']})"
+            regels.append("| " + " | ".join(cellen) + " |")
+        regels.append("")
+    regels += [f"_{voet}_", ""]
     RAPPORT.write_text("\n".join(regels), encoding="utf-8")
+
+
+def rapport_html(cfg, prijzen, te_melden):
+    """Dezelfde tabellen als RAPPORT.md, als HTML-mail; gemelde opties gemarkeerd."""
+    intro, periodes, voet = rapport_inhoud(cfg, prijzen)
+    gemeld = {r["sleutel"] for _, _, r in te_melden}
+    td = "padding:5px 8px;border:1px solid #d0d7de;white-space:nowrap;font-size:13px;"
+    delen = ['<div style="font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;'
+             'color:#1f2328;font-size:14px;line-height:1.5">',
+             '<h1 style="font-size:22px;margin:0 0 8px">Vliegprijzen naar Jämtland / Trondheim</h1>']
+    for p, reden, r in te_melden:
+        delen.append(f'<p style="margin:4px 0;padding:8px 12px;background:#fff8c5;border-radius:6px">'
+                     f'<b>{escape(p)} – {escape(reden)}:</b> €{r["prijs"]} {escape(r["van"])} → '
+                     f'{escape(r["naar"])}, heen vr {escape(r["heen"])}, terug {escape(r["terug"])}</p>')
+    delen.append(f'<p style="color:#59636e">{escape(intro)}</p>')
+    for naam, rijen in periodes:
+        delen.append(f'<h2 style="font-size:18px;margin:20px 0 8px;padding-bottom:4px;'
+                     f'border-bottom:1px solid #d0d7de">{escape(naam)}</h2>')
+        if not rijen:
+            delen.append(f"<p><i>{escape(GEEN_PRIJZEN)}</i></p>")
+            continue
+        kop = "".join(f'<th style="{td}background:#f6f8fa;text-align:{"right" if i == 0 else "left"}">'
+                      f"{escape(k)}</th>" for i, k in enumerate(KOPPEN))
+        rijen_html = []
+        for r in rijen:
+            cellen = [escape(c) for c in _cellen(r)]
+            cellen[0] = f'<a href="{escape(r["url"])}" style="color:#0969da">{cellen[0]}</a>'
+            achtergrond = "background:#fff8c5;font-weight:600;" if r["sleutel"] in gemeld else ""
+            rijen_html.append("<tr>" + "".join(
+                f'<td style="{td}{achtergrond}text-align:{"right" if i == 0 else "left"}">{c}</td>'
+                for i, c in enumerate(cellen)) + "</tr>")
+        delen.append(f'<div style="overflow-x:auto"><table style="border-collapse:collapse">'
+                     f'<tr>{kop}</tr>{"".join(rijen_html)}</table></div>')
+    delen.append(f'<p style="color:#59636e"><i>{escape(voet)}</i></p></div>')
+    return "".join(delen)
 
 
 def gebruik_mappen(cfg):
@@ -350,7 +406,7 @@ def main(config_naam="config.json"):
         laagste = min(r["prijs"] for _, _, r in te_melden)
         onderwerp = f"✈️ Vliegprijs-alert: vanaf €{laagste} naar Jämtland/Trondheim"
         tekst = "\n\n".join(f"{p} – {reden}:\n{beschrijf(cfg, r)}" for p, reden, r in te_melden)
-        stuur_melding(onderwerp, tekst)
+        stuur_melding(onderwerp, tekst, rapport_html(cfg, prijzen, te_melden))
 
     if fouten_op_rij >= MAX_FOUTEN_OP_RIJ and not gevonden:
         sys.exit(1)
@@ -360,8 +416,11 @@ if __name__ == "__main__":
     laad_geheimen(ROOT / "geheim.env")
     config_naam = sys.argv[sys.argv.index("--config") + 1] if "--config" in sys.argv else "config.json"
     if "--testmail" in sys.argv:
+        cfg = json.loads((ROOT / config_naam).read_text(encoding="utf-8"))
+        gebruik_mappen(cfg)
         stuur_melding("✈️ Testmelding vliegprijs-agent",
                       "Als je dit leest, werken de meldingen. Je krijgt voortaan bericht bij "
-                      "een nieuwe laagste prijs per reisperiode.")
+                      "een nieuwe laagste prijs per reisperiode.",
+                      rapport_html(cfg, laad_json(PRIJZEN, {}), []))
     else:
         main(config_naam)
