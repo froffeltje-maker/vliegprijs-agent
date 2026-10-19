@@ -342,6 +342,7 @@ def main(config_naam="config.json"):
     fouten_op_rij = 0
     gevonden = []
     aantal_gezocht = aantal_met_prijs = 0
+    nieuw_of_lager = set()  # combinaties met een prijs die nog niet bekend was of lager is
     with GESCHIEDENIS.open("a", newline="", encoding="utf-8") as f:
         schrijver = csv.writer(f)
         if nieuw_geschiedenis:
@@ -369,6 +370,8 @@ def main(config_naam="config.json"):
                 r = {**c, "prijs": prijs, "maatschappijen": maatschappijen,
                      "url": query.url(), "gecontroleerd": tijd, "bevestigd": tijd}
                 aantal_met_prijs += 1
+                if vorig.get("prijs") is None or prijs < vorig["prijs"]:
+                    nieuw_of_lager.add(c["sleutel"])
             else:
                 # Een leeg antwoord kan ook afremming door Google zijn: oude prijs bewaren.
                 r = {**c, "prijs": vorig.get("prijs"), "maatschappijen": vorig.get("maatschappijen", []),
@@ -400,8 +403,12 @@ def main(config_naam="config.json"):
         beste = kandidaten[0]
         if meldcfg.get("bij_nieuwe_laagste_prijs_per_periode") and beste["prijs"] < record_voor.get(p, 10**9):
             te_melden.append((p, "nieuwe laagste prijs", beste))
-        elif beste["prijs"] < meldcfg.get("altijd_melden_onder_eur", 0):
-            te_melden.append((p, f"onder €{meldcfg['altijd_melden_onder_eur']}", beste))
+        else:
+            # Onder de drempel alleen melden als die prijs nieuw of lager is, niet elke run opnieuw.
+            drempel = meldcfg.get("altijd_melden_onder_eur", 0)
+            onder = [r for r in kandidaten if r["prijs"] < drempel and r["sleutel"] in nieuw_of_lager]
+            if onder:
+                te_melden.append((p, f"onder €{drempel}", onder[0]))
     if te_melden:
         laagste = min(r["prijs"] for _, _, r in te_melden)
         onderwerp = f"✈️ Vliegprijs-alert: vanaf €{laagste} naar Jämtland/Trondheim"

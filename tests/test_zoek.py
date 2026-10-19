@@ -266,9 +266,38 @@ class TestRun(unittest.TestCase):
     def test_melding_onder_drempel_ook_zonder_record(self):
         self.draai(lambda q: 150)
         self.meldingen.clear()
-        self.draai(lambda q: 199)
+        self.draai(lambda q: 199)  # nieuwe combinaties, duurder dan record maar onder €250
         self.assertEqual(len(self.meldingen), 1)
         self.assertIn("onder €250", self.meldingen[0][1])
+
+    def _alles_per_run(self):
+        cfg = json.loads((self.map / "config.json").read_text(encoding="utf-8"))
+        cfg["zoekopdrachten_per_run"] = 10000
+        (self.map / "config.json").write_text(json.dumps(cfg), encoding="utf-8")
+
+    def test_geen_herhaalde_melding_voor_bekende_prijs_onder_drempel(self):
+        self._alles_per_run()
+        self.draai(lambda q: 199)
+        self.assertEqual(len(self.meldingen), 1)
+        self.draai(lambda q: 199)  # zelfde prijzen opnieuw gevonden
+        self.draai(lambda q: 210)  # duurder geworden
+        self.assertEqual(len(self.meldingen), 1)
+
+    def test_melding_als_bekende_prijs_onder_drempel_daalt(self):
+        self._alles_per_run()
+        eerste = []
+
+        def prijs(q, apart):
+            if not eerste:
+                eerste.append(q.url())
+            return apart if q.url() == eerste[0] else 199
+        self.draai(lambda q: prijs(q, 199))
+        self.draai(lambda q: prijs(q, 240))  # één combinatie duurder, rest gelijk: geen melding
+        self.meldingen.clear()
+        self.draai(lambda q: prijs(q, 230))  # die combinatie daalt (240 -> 230), onder drempel, geen record
+        self.assertEqual(len(self.meldingen), 1)
+        self.assertIn("onder €250", self.meldingen[0][1])
+        self.assertIn("€230", self.meldingen[0][1])
 
     def test_geen_vluchten_wordt_bijgehouden_zonder_melding(self):
         prijzen = self.draai(lambda q: None)
