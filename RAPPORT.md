@@ -1,6 +1,6 @@
 # Vliegprijzen naar Jämtland / Trondheim
 
-Laatst bijgewerkt: 07-11-2026 02:25. Retour, 1 volwassene(n), heen op vrijdag, 7–10 dagen verblijf.
+Laatst bijgewerkt: 07-11-2026 09:19. Retour, 1 volwassene(n), heen op vrijdag, 7–10 dagen verblijf.
 
 ## Eind januari - eind februari 2027
 
@@ -20,7 +20,7 @@ Laatst bijgewerkt: 07-11-2026 02:25. Retour, 1 volwassene(n), heen op vrijdag, 7
 | [€238](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDItMjYoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMDMtMDUoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR) | AMS → TRD | 2027-02-26 | 2027-03-05 | KLM | 2026-11-06 07:20 |
 | [€238](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDItMjYoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMDMtMDcoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR) | AMS → TRD | 2027-02-26 | 2027-03-07 | KLM | 2026-11-06 16:02 |
 | [€245](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDEtMjIoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDEtMzAoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-01-22 | 2027-01-30 | KLM | 2026-11-06 16:12 |
-| [€248](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDItMDUoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDItMTIoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-02-05 | 2027-02-12 | Norwegian | 2026-11-05 23:58 |
+| [€247](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDItMTIoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDItMTkoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-02-12 | 2027-02-19 | Norwegian | 2026-11-07 08:58 |
 
 ## Oktober 2027
 
