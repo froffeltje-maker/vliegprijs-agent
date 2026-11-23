@@ -1,6 +1,6 @@
 # Vliegprijzen naar Jämtland / Trondheim
 
-Laatst bijgewerkt: 22-11-2026 21:11. Retour, 1 volwassene(n), heen op vrijdag, 7–10 dagen verblijf.
+Laatst bijgewerkt: 23-11-2026 03:18. Retour, 1 volwassene(n), heen op vrijdag, 7–10 dagen verblijf.
 
 ## Eind januari - eind februari 2027
 
@@ -41,4 +41,4 @@ Laatst bijgewerkt: 22-11-2026 21:11. Retour, 1 volwassene(n), heen op vrijdag, 7
 
 _Nog geen prijzen (nog niet te boeken of nog niet gecontroleerd)._
 
-_160 gecontroleerde combinaties; 160 nu te boeken combinaties in totaal._
+_176 gecontroleerde combinaties; 176 nu te boeken combinaties in totaal._
