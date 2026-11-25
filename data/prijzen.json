@@ -1390,13 +1390,13 @@
   "naar": "TRD",
   "heen": "2027-10-01",
   "terug": "2027-10-08",
-  "prijs": 316,
+  "prijs": 306,
   "maatschappijen": [
    "Norwegian"
   ],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDEoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTAtMDgoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:03:50+00:00",
-  "bevestigd": "2026-11-22T21:03:50+00:00"
+  "gecontroleerd": "2026-11-25T11:33:29+00:00",
+  "bevestigd": "2026-11-25T11:33:29+00:00"
  },
  "AMS-OSD-2027-10-01-2027-10-09": {
   "sleutel": "AMS-OSD-2027-10-01-2027-10-09",
@@ -1572,7 +1572,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNBTVNyBRIDT1NEGhwSCjIwMjctMTAtMTUoAmoFEgNPU0RyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T20:57:15+00:00",
+  "gecontroleerd": "2026-11-25T11:27:11+00:00",
   "bevestigd": null
  },
  "AMS-TRD-2027-10-08-2027-10-15": {
@@ -1587,8 +1587,8 @@
    "Norwegian"
   ],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMTAtMTUoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T20:57:39+00:00",
-  "bevestigd": "2026-11-22T20:57:39+00:00"
+  "gecontroleerd": "2026-11-25T11:27:18+00:00",
+  "bevestigd": "2026-11-25T11:27:18+00:00"
  },
  "DUS-OSD-2027-10-08-2027-10-15": {
   "sleutel": "DUS-OSD-2027-10-08-2027-10-15",
@@ -1600,7 +1600,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNEVVNyBRIDT1NEGhwSCjIwMjctMTAtMTUoAmoFEgNPU0RyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T20:58:40+00:00",
+  "gecontroleerd": "2026-11-25T11:28:19+00:00",
   "bevestigd": null
  },
  "DUS-TRD-2027-10-08-2027-10-15": {
@@ -1615,7 +1615,7 @@
    "Norwegian"
   ],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTAtMTUoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T20:59:40+00:00",
+  "gecontroleerd": "2026-11-25T11:29:19+00:00",
   "bevestigd": "2026-11-21T03:36:25+00:00"
  },
  "AMS-OSD-2027-10-08-2027-10-16": {
@@ -1628,7 +1628,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNBTVNyBRIDT1NEGhwSCjIwMjctMTAtMTYoAmoFEgNPU0RyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:04:51+00:00",
+  "gecontroleerd": "2026-11-25T11:34:30+00:00",
   "bevestigd": null
  },
  "AMS-TRD-2027-10-08-2027-10-16": {
@@ -1641,7 +1641,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMTAtMTYoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:00:41+00:00",
+  "gecontroleerd": "2026-11-25T11:30:20+00:00",
   "bevestigd": null
  },
  "DUS-OSD-2027-10-08-2027-10-16": {
@@ -1654,7 +1654,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNEVVNyBRIDT1NEGhwSCjIwMjctMTAtMTYoAmoFEgNPU0RyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:01:42+00:00",
+  "gecontroleerd": "2026-11-25T11:31:21+00:00",
   "bevestigd": null
  },
  "DUS-TRD-2027-10-08-2027-10-16": {
@@ -1667,7 +1667,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTAtMTYoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:02:42+00:00",
+  "gecontroleerd": "2026-11-25T11:32:22+00:00",
   "bevestigd": null
  },
  "AMS-OSD-2027-10-08-2027-10-17": {
@@ -1680,7 +1680,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNBTVNyBRIDT1NEGhwSCjIwMjctMTAtMTcoAmoFEgNPU0RyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:03:44+00:00",
+  "gecontroleerd": "2026-11-25T11:33:23+00:00",
   "bevestigd": null
  },
  "AMS-TRD-2027-10-08-2027-10-17": {
@@ -1690,13 +1690,13 @@
   "naar": "TRD",
   "heen": "2027-10-08",
   "terug": "2027-10-17",
-  "prijs": 309,
+  "prijs": 308,
   "maatschappijen": [
    "Norwegian"
   ],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMTAtMTcoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:05:52+00:00",
-  "bevestigd": "2026-11-21T12:47:33+00:00"
+  "gecontroleerd": "2026-11-25T11:34:36+00:00",
+  "bevestigd": "2026-11-25T11:34:36+00:00"
  },
  "DUS-OSD-2027-10-08-2027-10-17": {
   "sleutel": "DUS-OSD-2027-10-08-2027-10-17",
@@ -1708,7 +1708,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNEVVNyBRIDT1NEGhwSCjIwMjctMTAtMTcoAmoFEgNPU0RyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:06:53+00:00",
+  "gecontroleerd": "2026-11-25T11:35:37+00:00",
   "bevestigd": null
  },
  "DUS-TRD-2027-10-08-2027-10-17": {
@@ -1718,13 +1718,13 @@
   "naar": "TRD",
   "heen": "2027-10-08",
   "terug": "2027-10-17",
-  "prijs": 299,
+  "prijs": 290,
   "maatschappijen": [
    "Norwegian"
   ],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTAtMTcoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:07:54+00:00",
-  "bevestigd": "2026-11-21T12:48:40+00:00"
+  "gecontroleerd": "2026-11-25T11:35:43+00:00",
+  "bevestigd": "2026-11-25T11:35:43+00:00"
  },
  "AMS-OSD-2027-10-08-2027-10-18": {
   "sleutel": "AMS-OSD-2027-10-08-2027-10-18",
@@ -1736,7 +1736,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNBTVNyBRIDT1NEGhwSCjIwMjctMTAtMTgoAmoFEgNPU0RyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:08:55+00:00",
+  "gecontroleerd": "2026-11-25T11:36:44+00:00",
   "bevestigd": null
  },
  "AMS-TRD-2027-10-08-2027-10-18": {
@@ -1746,11 +1746,13 @@
   "naar": "TRD",
   "heen": "2027-10-08",
   "terug": "2027-10-18",
-  "prijs": null,
-  "maatschappijen": [],
+  "prijs": 287,
+  "maatschappijen": [
+   "Norwegian"
+  ],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMTAtMTgoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:09:56+00:00",
-  "bevestigd": null
+  "gecontroleerd": "2026-11-25T11:37:09+00:00",
+  "bevestigd": "2026-11-25T11:37:09+00:00"
  },
  "DUS-OSD-2027-10-08-2027-10-18": {
   "sleutel": "DUS-OSD-2027-10-08-2027-10-18",
@@ -1762,7 +1764,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNEVVNyBRIDT1NEGhwSCjIwMjctMTAtMTgoAmoFEgNPU0RyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-22T21:10:58+00:00",
+  "gecontroleerd": "2026-11-25T11:38:09+00:00",
   "bevestigd": null
  },
  "DUS-TRD-2027-10-08-2027-10-18": {
@@ -2204,7 +2206,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNBTVNyBRIDT1NEGhwSCjIwMjctMTEtMDUoAmoFEgNPU0RyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T02:54:03+00:00",
+  "gecontroleerd": "2026-11-25T11:39:10+00:00",
   "bevestigd": null
  },
  "AMS-TRD-2027-10-29-2027-11-05": {
@@ -2217,7 +2219,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMTEtMDUoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T02:55:04+00:00",
+  "gecontroleerd": "2026-11-25T11:40:11+00:00",
   "bevestigd": null
  },
  "DUS-OSD-2027-10-29-2027-11-05": {
@@ -2230,7 +2232,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNEVVNyBRIDT1NEGhwSCjIwMjctMTEtMDUoAmoFEgNPU0RyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T02:56:05+00:00",
+  "gecontroleerd": "2026-11-25T11:41:12+00:00",
   "bevestigd": null
  },
  "DUS-TRD-2027-10-29-2027-11-05": {
@@ -2243,7 +2245,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTEtMDUoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T02:57:06+00:00",
+  "gecontroleerd": "2026-11-25T11:42:13+00:00",
   "bevestigd": null
  },
  "AMS-OSD-2027-10-29-2027-11-06": {
@@ -2256,7 +2258,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNBTVNyBRIDT1NEGhwSCjIwMjctMTEtMDYoAmoFEgNPU0RyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T02:58:07+00:00",
+  "gecontroleerd": "2026-11-25T11:43:13+00:00",
   "bevestigd": null
  },
  "AMS-TRD-2027-10-29-2027-11-06": {
@@ -2269,7 +2271,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMTEtMDYoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T02:59:07+00:00",
+  "gecontroleerd": "2026-11-25T11:44:14+00:00",
   "bevestigd": null
  },
  "DUS-OSD-2027-10-29-2027-11-06": {
@@ -2282,7 +2284,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNEVVNyBRIDT1NEGhwSCjIwMjctMTEtMDYoAmoFEgNPU0RyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T03:00:08+00:00",
+  "gecontroleerd": "2026-11-25T11:45:15+00:00",
   "bevestigd": null
  },
  "DUS-TRD-2027-10-29-2027-11-06": {
@@ -2295,7 +2297,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTEtMDYoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T03:01:09+00:00",
+  "gecontroleerd": "2026-11-25T11:46:16+00:00",
   "bevestigd": null
  },
  "AMS-OSD-2027-10-29-2027-11-07": {
@@ -2308,7 +2310,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNBTVNyBRIDT1NEGhwSCjIwMjctMTEtMDcoAmoFEgNPU0RyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T03:02:10+00:00",
+  "gecontroleerd": "2026-11-25T11:47:16+00:00",
   "bevestigd": null
  },
  "AMS-TRD-2027-10-29-2027-11-07": {
@@ -2321,7 +2323,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMTEtMDcoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T03:03:10+00:00",
+  "gecontroleerd": "2026-11-25T11:48:17+00:00",
   "bevestigd": null
  },
  "DUS-OSD-2027-10-29-2027-11-07": {
@@ -2334,7 +2336,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNEVVNyBRIDT1NEGhwSCjIwMjctMTEtMDcoAmoFEgNPU0RyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T03:04:11+00:00",
+  "gecontroleerd": "2026-11-25T11:49:18+00:00",
   "bevestigd": null
  },
  "DUS-TRD-2027-10-29-2027-11-07": {
@@ -2347,7 +2349,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTEtMDcoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T03:05:12+00:00",
+  "gecontroleerd": "2026-11-25T11:50:19+00:00",
   "bevestigd": null
  },
  "AMS-OSD-2027-10-29-2027-11-08": {
@@ -2360,7 +2362,7 @@
   "prijs": null,
   "maatschappijen": [],
   "url": "https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMjkoAmoFEgNBTVNyBRIDT1NEGhwSCjIwMjctMTEtMDgoAmoFEgNPU0RyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR",
-  "gecontroleerd": "2026-11-23T03:06:13+00:00",
+  "gecontroleerd": "2026-11-25T11:51:19+00:00",
   "bevestigd": null
  },
  "AMS-TRD-2027-10-29-2027-11-08": {
