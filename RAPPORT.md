@@ -1,6 +1,6 @@
 # Vliegprijzen naar Jämtland / Trondheim
 
-Laatst bijgewerkt: 27-11-2026 09:11. Retour, 1 volwassene(n), heen op vrijdag, 7–10 dagen verblijf.
+Laatst bijgewerkt: 27-11-2026 19:55. Retour, 1 volwassene(n), heen op vrijdag, 7–10 dagen verblijf.
 
 ## Eind januari - eind februari 2027
 
@@ -9,10 +9,10 @@ Laatst bijgewerkt: 27-11-2026 09:11. Retour, 1 volwassene(n), heen op vrijdag, 7
 | [€167](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDEtMjkoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDItMDgoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-01-29 | 2027-02-08 | Norwegian | 2026-11-24 03:10 |
 | [€172](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDItMjYoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDMtMDUoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-02-26 | 2027-03-05 | Norwegian | 2026-11-24 15:20 |
 | [€176](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDItMjYoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDMtMDgoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-02-26 | 2027-03-08 | Norwegian | 2026-11-26 23:21 |
-| [€189](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDEtMjkoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDItMDUoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-01-29 | 2027-02-05 | Norwegian | 2026-11-25 21:55 |
+| [€184](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDEtMjIoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDItMDEoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-01-22 | 2027-02-01 | Norwegian | 2026-11-27 19:51 |
+| [€187](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDEtMjkoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDItMDUoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-01-29 | 2027-02-05 | Norwegian | 2026-11-27 19:53 |
 | [€189](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDItMTIoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDItMjIoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-02-12 | 2027-02-22 | Norwegian | 2026-11-26 14:19 |
 | [€195](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDItMTkoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDItMjYoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-02-19 | 2027-02-26 | Norwegian | 2026-11-24 15:10 |
-| [€198](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDEtMjIoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDItMDEoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-01-22 | 2027-02-01 | Norwegian | 2026-11-25 21:54 |
 | [€204](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDEtMjIoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDEtMjkoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-01-22 | 2027-01-29 | Norwegian | 2026-11-26 23:23 |
 | [€205](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDItMTIoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMDItMTkoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-02-12 | 2027-02-19 | Norwegian | 2026-11-26 14:11 |
 | [€210](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMDItMDUoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMDItMTIoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR) | AMS → TRD | 2027-02-05 | 2027-02-12 | KLM | 2026-11-24 03:11 |
@@ -26,11 +26,11 @@ Laatst bijgewerkt: 27-11-2026 09:11. Retour, 1 volwassene(n), heen op vrijdag, 7
 
 | Prijs | Route | Heen (vr) | Terug | Maatschappij | Prijs gezien |
 |---:|---|---|---|---|---|
+| [€266](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTAtMTgoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-10-08 | 2027-10-18 | Norwegian | 2026-11-27 19:48 |
 | [€283](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDEoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTAtMTEoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-10-01 | 2027-10-11 | Norwegian | 2026-11-27 08:56 |
 | [€287](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTAtMTUoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-10-08 | 2027-10-15 | Norwegian | 2026-11-27 09:02 |
 | [€287](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMTAtMTgoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR) | AMS → TRD | 2027-10-08 | 2027-10-18 | Norwegian | 2026-11-25 11:37 |
 | [€290](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTAtMTcoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-10-08 | 2027-10-17 | Norwegian | 2026-11-27 09:10 |
-| [€290](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTAtMTgoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-10-08 | 2027-10-18 | Norwegian | 2026-11-25 21:52 |
 | [€306](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDEoAmoFEgNEVVNyBRIDVFJEGhwSCjIwMjctMTAtMDgoAmoFEgNUUkRyBRIDRFVTQgEBSAGYAQE=&hl=nl&curr=EUR) | DUS → TRD | 2027-10-01 | 2027-10-08 | Norwegian | 2026-11-25 11:33 |
 | [€306](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMTAtMTUoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR) | AMS → TRD | 2027-10-08 | 2027-10-15 | Norwegian | 2026-11-27 09:00 |
 | [€308](https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjctMTAtMDgoAmoFEgNBTVNyBRIDVFJEGhwSCjIwMjctMTAtMTcoAmoFEgNUUkRyBRIDQU1TQgEBSAGYAQE=&hl=nl&curr=EUR) | AMS → TRD | 2027-10-08 | 2027-10-17 | Norwegian | 2026-11-27 09:09 |
